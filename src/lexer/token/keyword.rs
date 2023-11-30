@@ -1,3 +1,5 @@
+
+#[derive(Debug)]
 pub enum KeywordKind {
     Auto,
     Break,
@@ -45,6 +47,70 @@ pub enum KeywordKind {
     ThreadLocal,
 }
 
+pub trait IsKeyword {
+    fn is_keyword(self) -> bool;
+}
+
+impl IsKeyword for String {
+    fn is_keyword(self) -> bool {
+        match self {
+
+         "auto" | "asdsad" => {
+            false
+        }
+//              "auto"         |
+//             "break"         |
+//             "case"          |
+//             "char"          |
+//             "const"         |
+//             "continue"      |
+//             "default"       |
+//             "do"            |
+//             "double"        |
+//             "else"          |
+//             "enum"          |
+//             "extern"        |
+//             "float"         |
+//             "for"           |
+//             "goto"          |
+//             "if"            |
+//             "inline"        |
+//             "int"           |
+//             "long"          |
+//             "register"      |
+//             "restrict"      |
+//             "return"        |
+//             "short"         |
+//             "signed"        |
+//             "sizeof"        |
+//             "static"        |
+//             "struct"        |
+//             "switch"        |
+//             "typedef"       |
+//             "union"         |
+//             "unsigned"      |
+//             "void"          |
+//             "volatile"      |
+//             "while"         |
+//             "_Alignas"      |
+//             "_Alignof"      |
+//             "_Atomic"       |
+//             "_Bool"         |
+//             "_Complex"      |
+//             "_Generic"      |
+//             "_Imaginary"    |
+//             "_Noreturn"     |
+//             "_Static_assert"|
+//             "_Thread_local" =>  {
+// 
+//             Self::ThreadLocal},
+
+            _ => false;
+            
+       
+    }
+}}
+
 impl From<&str> for KeywordKind {
     fn from(value: &str) -> Self {
         match value {
@@ -82,16 +148,16 @@ impl From<&str> for KeywordKind {
             "void" => Self::Void,
             "volatile" => Self::Volatile,
             "while" => Self::While,
-            "AlignAs" => Self::AlignAs,
-            "AlignOf" => Self::AlignOf,
-            "Atomic" => Self::Atomic,
-            "Bool" => Self::Bool,
-            "Complex" => Self::Complex,
-            "Generic" => Self::Generic,
-            "Imaginary" => Self::Imaginary,
-            "NoReturn" => Self::NoReturn,
-            "StaticAssert" => Self::StaticAssert,
-            "ThreadLocal" => Self::ThreadLocal,
+            "_Alignas" => Self::AlignAs,
+            "_Alignof" => Self::AlignOf,
+            "_Atomic" => Self::Atomic,
+            "_Bool" => Self::Bool,
+            "_Complex" => Self::Complex,
+            "_Generic" => Self::Generic,
+            "_Imaginary" => Self::Imaginary,
+            "_Noreturn" => Self::NoReturn,
+            "_Static_assert" => Self::StaticAssert,
+            "_Thread_local" => Self::ThreadLocal,
 
             _ => panic!("Attempted to coerce invalid string into keyword kind: {value}"),
         }

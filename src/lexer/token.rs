@@ -1,21 +1,43 @@
 pub mod keyword;
+pub mod punctuator;
 
 use keyword::KeywordKind;
 
+use self::punctuator::PunctuatorKind;
+
+#[derive(Debug)]
+pub enum ConstantKind {
+    Number,
+}
+
+#[derive(Debug)]
 pub enum TokenKind {
     Keyword(KeywordKind),
-    Identifier(String),
-    StringLiteral(String),
-    Constant(String),
+    Identifier,
+    StringLiteral,
+    Constant(ConstantKind),
+    Punctuator(PunctuatorKind)
 }
 
+#[derive(Debug, Clone)]
 pub struct Location {
-    line: u8,
-    column: u8,
+    pub line: u8,
+    pub column: u8,
 }
 
+#[derive(Debug)]
 pub struct Token {
     location: Location,
     lexeme: String,
     kind: TokenKind,
+}
+
+impl Token {
+    pub fn new(kind: TokenKind, lexeme: String, location: Location) -> Self {
+        Self {
+            kind,
+            lexeme,
+            location,
+        }
+    }
 }
