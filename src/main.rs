@@ -1,9 +1,11 @@
 mod lexer;
+mod parser;
 
 use std::fs;
 
 use clap::Parser;
 use lexer::lex::Lexer;
+use parser::parse;
 
 #[derive(Parser, Debug)]
 #[command(
@@ -35,9 +37,7 @@ fn main() {
             println!("error: could not compile due to previous errors");
         }
         Ok(tokens) => {
-            for token in tokens {
-                dbg!(token);
-            }
+            parse(tokens);
         }
     }
 }
