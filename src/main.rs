@@ -17,13 +17,13 @@ use parser::parse;
 struct Args {
     /// File to compile
     #[arg(short, long)]
-    filename: String
+    filename: String,
 }
-
 
 fn main() {
     let args = Args::parse();
-    let source = fs::read_to_string(args.filename.clone()).expect("Provided filepath should be readable.");
+    let source =
+        fs::read_to_string(args.filename.clone()).expect("Provided filepath should be readable.");
 
     let mut lx = Lexer::new(&source);
     let lexed_result = lx.tokenize();
@@ -37,6 +37,10 @@ fn main() {
             println!("error: could not compile due to previous errors");
         }
         Ok(tokens) => {
+            for token in tokens.iter() {
+                println!("{:?}", token);
+            }
+            println!("{}", "-".repeat(90));
             parse(Arc::new(tokens));
         }
     }
