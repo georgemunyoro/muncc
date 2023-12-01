@@ -34,6 +34,10 @@ impl Lexer {
         self.source_chars.get(self.index - 1)
     }
 
+    fn peek_next(&self) -> Option<&char> {
+        self.source_chars.get(self.index + 1)
+    }
+
     fn consume(&mut self) -> Option<&char> {
         if let Some(&cc) = self.peek() {
             self.location.column += 1;
@@ -54,6 +58,39 @@ impl Lexer {
             if cc.is_whitespace() {
                 self.consume();
                 continue;
+            }
+
+            if cc == '/' {
+                if let Some(&next_char) = self.peek_next() {
+                    match next_char {
+                        '/' => {
+                            self.consume();
+                            self.consume();
+                            while let Some(&comment_char) = self.peek() {
+                                self.consume();
+                                if comment_char == '\n' {
+                                    break;
+                                }
+                            }
+                            continue;
+                        },
+                        '*' => {
+                            self.consume();
+                            self.consume();
+                            while let Some(&comment_char) = self.peek() {
+                                self.consume();
+                                if comment_char == '*' {
+                                    if self.peek().is_some() && *self.peek().unwrap() == '/' {
+                                        self.consume();
+                                        break;
+                                    }
+                                }
+                            }
+                            continue;
+                        }
+                        _ => {}
+                    }
+                }
             }
 
             let token = if cc.is_alphabetic() {
