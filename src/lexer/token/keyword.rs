@@ -1,4 +1,3 @@
-
 #[derive(Debug)]
 pub enum KeywordKind {
     Auto,
@@ -53,63 +52,24 @@ pub trait IsKeyword {
 
 impl IsKeyword for String {
     fn is_keyword(self) -> bool {
-        match self {
-
-         "auto" | "asdsad" => {
-            false
+        match self.as_str() {
+            "auto" | "break" | "case" | "char" | "const" | "continue" | "default" | "do"
+            | "double" | "else" | "enum" | "extern" | "float" | "for" | "goto" | "if"
+            | "inline" | "int" | "long" | "register" | "restrict" | "return" | "short"
+            | "signed" | "sizeof" | "static" | "struct" | "switch" | "typedef" | "union"
+            | "unsigned" | "void" | "volatile" | "while" | "_Alignas" | "_Alignof" | "_Atomic"
+            | "_Bool" | "_Complex" | "_Generic" | "_Imaginary" | "_Noreturn" | "_Static_assert"
+            | "_Thread_local" => true,
+            _ => false,
         }
-//              "auto"         |
-//             "break"         |
-//             "case"          |
-//             "char"          |
-//             "const"         |
-//             "continue"      |
-//             "default"       |
-//             "do"            |
-//             "double"        |
-//             "else"          |
-//             "enum"          |
-//             "extern"        |
-//             "float"         |
-//             "for"           |
-//             "goto"          |
-//             "if"            |
-//             "inline"        |
-//             "int"           |
-//             "long"          |
-//             "register"      |
-//             "restrict"      |
-//             "return"        |
-//             "short"         |
-//             "signed"        |
-//             "sizeof"        |
-//             "static"        |
-//             "struct"        |
-//             "switch"        |
-//             "typedef"       |
-//             "union"         |
-//             "unsigned"      |
-//             "void"          |
-//             "volatile"      |
-//             "while"         |
-//             "_Alignas"      |
-//             "_Alignof"      |
-//             "_Atomic"       |
-//             "_Bool"         |
-//             "_Complex"      |
-//             "_Generic"      |
-//             "_Imaginary"    |
-//             "_Noreturn"     |
-//             "_Static_assert"|
-//             "_Thread_local" =>  {
-// 
-//             Self::ThreadLocal},
-
-            _ => false;
-            
-       
     }
-}}
+}
+
+impl From<String> for KeywordKind {
+    fn from(value: String) -> Self {
+        Self::from(value.as_str())
+    }
+}
 
 impl From<&str> for KeywordKind {
     fn from(value: &str) -> Self {
@@ -163,5 +123,3 @@ impl From<&str> for KeywordKind {
         }
     }
 }
-
-
