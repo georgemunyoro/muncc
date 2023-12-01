@@ -1,7 +1,7 @@
 mod lexer;
 mod parser;
 
-use std::fs;
+use std::{fs, sync::Arc};
 
 use clap::Parser;
 use lexer::lex::Lexer;
@@ -37,7 +37,7 @@ fn main() {
             println!("error: could not compile due to previous errors");
         }
         Ok(tokens) => {
-            parse(tokens);
+            parse(Arc::new(tokens));
         }
     }
 }

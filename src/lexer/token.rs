@@ -5,13 +5,13 @@ use keyword::KeywordKind;
 
 use self::punctuator::PunctuatorKind;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum ConstantKind {
     Number,
     Char,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum TokenKind {
     Keyword(KeywordKind),
     Identifier,
@@ -30,11 +30,11 @@ pub struct Location {
     pub column: usize,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Token {
-    location: Location,
-    lexeme: String,
-    kind: TokenKind,
+    pub location: Location,
+    pub lexeme: String,
+    pub kind: TokenKind,
 }
 
 impl Token {
